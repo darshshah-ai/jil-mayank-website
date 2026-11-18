@@ -93,6 +93,12 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 @keyframes fly{0%{transform:translate(0,0) rotate(10deg)}25%{transform:translate(28cqw,-12cqw) rotate(-12deg)}50%{transform:translate(58cqw,8cqw) rotate(12deg)}75%{transform:translate(85cqw,-10cqw) rotate(-8deg)}100%{transform:translate(120cqw,4cqw) rotate(10deg)}}
 #hint{position:absolute;bottom:3cqw;left:0;right:0;text-align:center;z-index:25;font-family:'Jost';font-size:2.2cqw;letter-spacing:.2em;text-transform:uppercase;color:#8c1c2b88;pointer-events:none;transition:opacity 1s}
 .final .tap{display:none}
+#start{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4cqw;background:linear-gradient(#f3c9bd,#f7d9cf);cursor:pointer;transition:opacity .8s,visibility .8s;text-align:center}
+#start.hide{opacity:0;visibility:hidden}
+#start .script{font-size:14cqw}
+#start .pulse{animation:pulse 2s ease-in-out infinite;color:var(--maroon)}
+@keyframes pulse{50%{opacity:.35}}
+#mute{position:absolute;top:max(5cqw,calc(env(safe-area-inset-top) + 3cqw));right:3cqw;z-index:35;width:8cqw;height:8cqw;border-radius:50%;border:1px solid #8c1c2b55;background:#fffbeecc;color:var(--maroon);font-size:3.6cqw;cursor:pointer;display:none;place-items:center;padding:0}
 </style>
 </head>
 <body>
@@ -185,6 +191,9 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
     <p class="script a" style="--d:3.8s;font-size:9cqw;margin-top:5cqw">With love, Jil &amp; Mayank</p>
   </section>
 
+  <div id="start"><p class="sans" style="color:var(--maroon)">You are invited</p><p class="script">Jil &amp; Mayank</p><p class="sans pulse">Tap to open · sound on ♪</p></div>
+  <button id="mute" aria-label="Mute music">♪</button>
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
   <div class="bars" id="bars"></div>
   <div class="tap" id="tap"><div id="prev"></div><div id="next"></div></div>
   <div id="hint">Tap to skip · hold to pause</div>
@@ -235,7 +244,17 @@ const fx = $('#fx');
 for (let i = 0; i < 14; i++) { const p = document.createElement('i'); p.className = 'petal'; p.style.cssText = `left:${Math.random()*100}%;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*15}s;transform:scale(${.6+Math.random()*.8})`; fx.appendChild(p); }
 for (let i = 0; i < 3; i++) { const b = document.createElement('i'); b.className = 'bf'; b.textContent = '🦋'; b.style.cssText = `top:${15+i*25}%;animation-duration:${22+i*6}s;animation-delay:${-i*8}s`; fx.appendChild(b); }
 
-document.fonts.ready.then(() => go(0));
+const bgm = $('#bgm'), mute = $('#mute');
+let fadeT;
+function fadeTo(v) { clearInterval(fadeT); fadeT = setInterval(() => { bgm.volume = Math.min(1, Math.max(0, bgm.volume + (v > bgm.volume ? .02 : -.02))); if (Math.abs(bgm.volume - v) < .02) { bgm.volume = v; clearInterval(fadeT); } }, 100); }
+$('#start').onclick = () => {
+  $('#start').classList.add('hide');
+  bgm.volume = 0; bgm.play().then(() => fadeTo(.45)).catch(() => {});
+  mute.style.display = 'grid'; go(0);
+};
+mute.onclick = e => { e.stopPropagation(); bgm.muted = !bgm.muted; mute.style.opacity = bgm.muted ? .45 : 1; mute.textContent = bgm.muted ? '✕' : '♪'; };
+mute.addEventListener('pointerup', e => e.stopPropagation());
+document.addEventListener('visibilitychange', () => { if (document.hidden) bgm.pause(); else if ($('#start').classList.contains('hide') && !bgm.muted) bgm.play().catch(() => {}); });
 setTimeout(() => $('#hint').style.opacity = 0, 6000);
 </script>
 </body>
