@@ -46,6 +46,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 .row{display:grid;gap:2.2cqw}
 .ganesh{width:36cqw;mix-blend-mode:multiply;opacity:0;-webkit-mask-image:radial-gradient(closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(closest-side,#000 82%,transparent 100%)}
 .sc.on .ganesh,.sc.out .ganesh{animation:zoomin 1.8s cubic-bezier(.2,.7,.2,1) .2s both}
+.couple{position:absolute;left:50%;bottom:1cqh;width:62cqw;margin-left:-31cqw;filter:drop-shadow(0 1.5cqw 3cqw #5a2a2a55);pointer-events:none}
 .photo{width:50cqw;border-radius:40cqw 40cqw 2cqw 2cqw;border:1.2cqw solid #fff8e6;box-shadow:0 3cqw 8cqw #6a57504d;overflow:hidden;aspect-ratio:1140/1420}
 .photo img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 8s ease-out forwards}
 @keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
@@ -55,12 +56,6 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 .btn.fill{background:var(--ink);color:#fff3e2}
 
 /* ui */
-.bars{position:absolute;top:max(2.2cqw,env(safe-area-inset-top));left:3cqw;right:3cqw;display:flex;gap:1cqw;z-index:30;pointer-events:none}
-.bars i{flex:1;height:.7cqw;background:#ffffffaa;border-radius:1cqw;overflow:hidden;min-height:2px}
-.bars i b{display:block;height:100%;width:0;background:var(--ink)}
-.bars i.done b{width:100%}
-.bars i.cur b{animation:fill linear forwards;animation-duration:var(--t);animation-play-state:var(--ps,running)}
-@keyframes fill{to{width:100%}}
 .tap{position:absolute;inset:0;z-index:20;display:flex}
 .tap div{flex:1}.tap div:last-child{flex:2}
 #hint{position:absolute;bottom:3cqw;left:0;right:0;text-align:center;z-index:25;font-family:'Playfair Display',serif;font-size:2cqw;letter-spacing:.25em;text-transform:uppercase;color:#7a2230aa;pointer-events:none;transition:opacity 1s}
@@ -89,6 +84,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
     <p class="script names wipe" style="--d:.8s">Jil</p>
     <p class="script amp a" style="--d:2s">&amp;</p>
     <p class="script names wipe" style="--d:2.4s">Mayank</p>
+    <img class="couple a" style="--d:3.6s" src="couple-cut.png" alt="Jil and Mayank">
   </section>
 
   <!-- 1 invitee -->
@@ -124,7 +120,6 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
   <div id="start"><p class="cap" style="color:var(--ink)">You are invited</p><div class="div" style="width:40cqw">✦</div><p class="cap pulse" style="font-size:2.5cqw">Tap to open · sound on ♪</p></div>
   <button id="mute" aria-label="Mute music">♪</button>
   <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
-  <div class="bars" id="bars"></div>
   <div class="tap" id="tap"><div id="prev"></div><div id="next"></div></div>
   <div id="hint">Tap to skip · hold to pause</div>
 </main>
@@ -132,9 +127,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 <script>
 const $ = s => document.querySelector(s);
 const T = [8500, 9500, 0]; // ms per scene; 0 = last, stays
-const sc = [...document.querySelectorAll('.sc')], bars = $('#bars'), stage = $('#stage');
-sc.forEach(() => bars.insertAdjacentHTML('beforeend', '<i><b></b></i>'));
-const seg = [...bars.children];
+const sc = [...document.querySelectorAll('.sc')], stage = $('#stage');
 let cur = -1, left = 0, last = 0, paused = false, raf = 0;
 
 function go(n) {
@@ -143,8 +136,6 @@ function go(n) {
   if (cur >= 0 && cur !== n) { sc[cur].classList.add('out'); const o = sc[cur]; setTimeout(() => o.classList.remove('out'), 1200); }
   sc.forEach((s, i) => s.classList.toggle('on', i === n));
   sc[n].classList.remove('on'); void sc[n].offsetWidth; sc[n].classList.add('on'); // restart animations
-  seg.forEach((b, i) => { b.className = i < n ? 'done' : i === n && T[n] ? 'cur' : (i === n ? 'done' : ''); b.style.setProperty('--t', T[i] + 'ms'); b.style.removeProperty('--ps'); });
-  if (seg[n].classList.contains('cur')) { const b = seg[n]; b.classList.remove('cur'); void b.offsetWidth; b.classList.add('cur'); }
   stage.classList.toggle('final', n === sc.length - 1);
   cur = n; left = T[n]; last = performance.now();
   cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
@@ -154,7 +145,7 @@ function loop(now) {
   if (!paused) { left -= now - last; if (left <= 0) return go(cur + 1); }
   last = now; raf = requestAnimationFrame(loop);
 }
-function pause(p) { paused = p; seg[cur].style.setProperty('--ps', p ? 'paused' : 'running'); }
+function pause(p) { paused = p; }
 
 // tap right = next, left = back, hold = pause
 let down = 0, held = false;
