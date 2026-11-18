@@ -74,7 +74,12 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 #hint{position:absolute;bottom:3cqw;left:0;right:0;text-align:center;z-index:25;font-family:'Cinzel',serif;font-size:2cqw;letter-spacing:.25em;text-transform:uppercase;color:#6a5750aa;pointer-events:none;transition:opacity 1s}
 .final .tap{display:none}
 #start{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3cqw;cursor:pointer;transition:opacity 1.2s,visibility 1.2s;text-align:center;
- background:radial-gradient(ellipse 60% 18% at 25% 22%,#fffaf0 0,transparent 70%),radial-gradient(ellipse 55% 16% at 78% 40%,#fffaf0 0,transparent 70%),radial-gradient(ellipse 65% 20% at 30% 72%,#fff6e3 0,transparent 70%),linear-gradient(#f3e4c4,#f8edd6)}
+}
+#curtain{position:absolute;inset:0;z-index:50;pointer-events:none;overflow:hidden}
+#curtain i{position:absolute;top:0;bottom:0;width:50%;background:url(curtain.jpg) 0 0/200% 100%;transition:transform 3.6s cubic-bezier(.6,0,.3,1),opacity 1s ease-in 2.8s}
+#curtain i+i{right:0;background-position:100% 0}
+#curtain.open i{transform:translateX(-102%);opacity:0}#curtain.open i+i{transform:translateX(102%)}
+#start{text-shadow:0 0 2cqw #fff8e6,0 0 4cqw #fff8e6}
 #start.hide{opacity:0;visibility:hidden}
 #start .script{font-size:15cqw}
 #start .pulse{animation:pulse 2.4s ease-in-out infinite}
@@ -87,78 +92,31 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
   <img class="bg" src="bg.jpg" alt="">
   <div id="fx"></div>
 
-  <!-- 0 blessing -->
-  <section class="sc" id="s0" style="--vh:46cqh">
-    <img class="ganesh" src="ganesh.jpg" alt="Shree Ganesh">
-    <p class="cap a" style="--d:1.4s;margin-top:4cqw">|| Shree Ganeshay Namah ||</p>
-    <div class="div a" style="--d:1.9s">✦</div>
-    <p class="cap a" style="--d:2.4s">|| Shree Ambkiay Namah ||</p>
+  <!-- 0 names -->
+  <section class="sc" id="s2" style="--vh:46cqh">
+    <p class="cap a" style="--d:.3s">Wedding Reception</p>
+    <p class="script names wipe" style="--d:.8s">Jil</p>
+    <p class="script amp a" style="--d:2s">&amp;</p>
+    <p class="script names wipe" style="--d:2.4s">Mayank</p>
   </section>
 
-  <!-- 1 invitation -->
-  <section class="sc" id="s1" style="--vh:50cqh">
-    <p class="cap a" style="--d:.3s">Please join us for the</p>
-    <p class="script title zoom" style="--d:1s;margin:2cqw 0">Wedding Reception</p>
-    <div class="div a" style="--d:1.9s">✦</div>
-    <p class="cap a" style="--d:2.4s;font-size:2.7cqw;letter-spacing:.2em;color:var(--name)">Mrs. Jigna &amp; Mr. Nipul Shah</p>
-    <p class="cap a" style="--d:3.2s;margin-top:2cqw">cordially invite you<br>to join &amp; celebrate<br>the wedding reception<br>of our daughter</p>
-  </section>
-
-  <!-- 2 names -->
-  <section class="sc" id="s2" style="--vh:54cqh">
-    <p class="cap a" style="--d:.2s">of</p>
-    <p class="script names wipe" style="--d:.6s">Jil</p>
-    <p class="script amp a" style="--d:1.8s">&amp;</p>
-    <p class="script names wipe" style="--d:2.2s">Mayank</p>
-    <div class="div a" style="--d:3.8s">✦</div>
-    <p class="cap a" style="--d:4.2s;font-size:2.6cqw">Son of Mrs. Kailash<br>&amp; Mr. Bansilal Suthar</p>
-  </section>
-
-  <!-- 3 photo -->
-  <section class="sc" id="s3" style="--vh:62cqh;padding-top:12cqh">
-    <p class="cap a" style="--d:.2s;margin-bottom:2cqw">Together with their families</p>
-    <div class="photo zoom" style="--d:.5s"><img src="couple.jpg" alt="Jil and Mayank"></div>
-    <p class="script title a" style="--d:2.2s;margin-top:3cqw">Jil &amp; Mayank</p>
-  </section>
-
-  <!-- 4 story -->
-  <section class="sc" id="s4" style="--vh:74cqh">
-    <p class="cap a" style="--d:.2s">The couple</p>
-    <p class="script title a" style="--d:.8s;margin:2cqw 0">Two hearts,<br>one journey</p>
-    <p class="body a" style="--d:1.8s">Some stories begin quietly and become the most beautiful ones. Two people, two families, and a love that grew into forever.</p>
-    <div class="div a" style="--d:3.4s">✦</div>
-    <div class="row a" style="--d:3.8s">
-      <p class="cap" style="font-size:2.5cqw;line-height:1.9"><span class="script" style="font-size:8cqw;display:block;letter-spacing:0;text-transform:none">Jil</span>Beloved daughter of<br>Mrs. Jigna &amp; Mr. Nipul Shah</p>
-      <p class="cap" style="font-size:2.5cqw;line-height:1.9"><span class="script" style="font-size:8cqw;display:block;letter-spacing:0;text-transform:none">Mayank</span>Beloved son of<br>Mrs. Kailash &amp; Mr. Bansilal Suthar</p>
-    </div>
-  </section>
-
-  <!-- 5 date -->
-  <section class="sc" id="s5" style="--vh:46cqh">
-    <p class="cap a" style="--d:.2s">Save the date</p>
-    <p class="cap a" style="--d:.8s;margin-top:2cqw">Sunday</p>
-    <p class="bigdate zoom" style="--d:1.2s">17<sup>TH</sup></p>
-    <p class="cap a" style="--d:2.2s;font-size:3.6cqw;color:var(--name)">January, 2027</p>
-    <div class="div a" style="--d:2.8s">✦</div>
-    <p class="cap a" style="--d:3.2s">6:30 PM onwards</p>
-  </section>
-
-  <!-- 6 compliments -->
-  <section class="sc" id="s6" style="--vh:52cqh">
-    <p class="cap a" style="--d:.2s;margin-bottom:3cqw">With best compliments from</p>
+  <!-- 1 invitee -->
+  <section class="sc" id="s6" style="--vh:56cqh">
+    <p class="script title zoom" style="--d:.3s">Invitee</p>
+    <div class="div a" style="--d:1s">✦</div>
     <div class="row">
-      <p class="cap a" style="--d:.8s;font-size:2.7cqw;line-height:1.6">Mrs. Indiraben Sundarlal Shah</p>
-      <p class="cap a" style="--d:1.3s;font-size:2.7cqw;line-height:1.6">Late Mr. Sundarlal Kantilal Shah</p>
-      <p class="cap a" style="--d:1.8s;font-size:2.7cqw;line-height:1.6">Mrs. Monali Ashishkumar Shah</p>
-      <p class="cap a" style="--d:2.3s;font-size:2.7cqw;line-height:1.6">Mr. Ashish Sundarlal Shah</p>
-      <p class="cap a" style="--d:2.8s;font-size:2.7cqw;line-height:1.6">Miss. Het Ashishkumar Shah</p>
-      <p class="cap a" style="--d:3.3s;font-size:2.7cqw;line-height:1.6">Mr. Meet Nipulkumar Shah</p>
+      <p class="body a" style="--d:1.4s;font-size:4.4cqw">Mrs. Indiraben Sundarlal Shah</p>
+      <p class="body a" style="--d:1.9s;font-size:4.4cqw">Late Mr. Sundarlal Kantilal Shah</p>
+      <p class="body a" style="--d:2.4s;font-size:4.4cqw">Mrs. Monali Ashishkumar Shah</p>
+      <p class="body a" style="--d:2.9s;font-size:4.4cqw">Mr. Ashish Sundarlal Shah</p>
+      <p class="body a" style="--d:3.4s;font-size:4.4cqw">Miss. Het Ashishkumar Shah</p>
+      <p class="body a" style="--d:3.9s;font-size:4.4cqw">Mr. Meet Nipulkumar Shah</p>
     </div>
   </section>
 
-  <!-- 7 venue (final) -->
+  <!-- 2 venue (final) -->
   <section class="sc" id="s7" style="--vh:64cqh;padding-top:12cqh">
-    <p class="cap a" style="--d:.2s">Venue</p>
+    <p class="script title a" style="--d:.2s">Venue</p>
     <div class="div a" style="--d:.5s">✦</div>
     <p class="script title a" style="--d:.8s;margin-bottom:1cqw">The Grand Mirada</p>
     <p class="cap a" style="--d:1.3s;color:var(--name)">Restaurant &amp; Banquet</p>
@@ -171,7 +129,8 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
     </div>
   </section>
 
-  <div id="start"><p class="cap" style="color:var(--ink)">You are invited</p><p class="script">Jil &amp; Mayank</p><div class="div" style="width:40cqw">✦</div><p class="cap pulse" style="font-size:2.5cqw">Tap to open · sound on ♪</p></div>
+  <div id="curtain"><i></i><i></i></div>
+  <div id="start"><p class="cap" style="color:var(--ink)">You are invited</p><div class="div" style="width:40cqw">✦</div><p class="cap pulse" style="font-size:2.5cqw">Tap to open · sound on ♪</p></div>
   <button id="mute" aria-label="Mute music">♪</button>
   <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
   <div class="bars" id="bars"></div>
@@ -181,7 +140,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 
 <script>
 const $ = s => document.querySelector(s);
-const T = [5600, 7200, 8000, 7000, 8200, 6600, 6000, 0]; // ms per scene; 0 = last, stays
+const T = [8500, 9500, 0]; // ms per scene; 0 = last, stays
 const sc = [...document.querySelectorAll('.sc')], bars = $('#bars'), stage = $('#stage');
 sc.forEach(() => bars.insertAdjacentHTML('beforeend', '<i><b></b></i>'));
 const seg = [...bars.children];
@@ -230,9 +189,9 @@ let fadeT;
 function fadeTo(v) { clearInterval(fadeT); fadeT = setInterval(() => { bgm.volume = Math.min(1, Math.max(0, bgm.volume + (v > bgm.volume ? .02 : -.02))); if (Math.abs(bgm.volume - v) < .02) { bgm.volume = v; clearInterval(fadeT); } }, 100); }
 $('#start').onclick = () => {
   $('#start').classList.add('hide');
-  stage.classList.add('go');
+  stage.classList.add('go'); $('#curtain').classList.add('open');
   bgm.volume = 0; bgm.play().then(() => fadeTo(.45)).catch(() => {});
-  mute.style.display = 'grid'; setTimeout(() => go(0), 900);
+  mute.style.display = 'grid'; setTimeout(() => go(0), 2200);
 };
 mute.onclick = e => { e.stopPropagation(); bgm.muted = !bgm.muted; mute.style.opacity = bgm.muted ? .45 : 1; mute.textContent = bgm.muted ? '✕' : '♪'; };
 mute.addEventListener('pointerup', e => e.stopPropagation());
