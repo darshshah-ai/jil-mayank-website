@@ -41,10 +41,10 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 .sc.on .wipe,.sc.out .wipe{animation:wipe 1.8s ease-out var(--d,0s) both}
 @keyframes wipe{from{opacity:1;clip-path:inset(-30% 100% -30% -30%)}to{opacity:1;clip-path:inset(-30% -30% -30% -30%)}}
 
-.names{font-size:19cqw;line-height:1}.amp{font-size:8cqw;color:var(--gold);margin:0}.title{font-size:11cqw}
+.names{font-size:19cqw;line-height:1.25;padding:0 4cqw}.amp{font-size:8cqw;color:var(--gold);margin:0}.title{font-size:11cqw}
 .body{font-size:3.6cqw;line-height:1.5;font-style:italic;color:var(--ink)}
 .row{display:grid;gap:2.2cqw}
-.ganesh{width:36cqw;mix-blend-mode:multiply;opacity:0;-webkit-mask-image:radial-gradient(closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(closest-side,#000 82%,transparent 100%)}
+.ganesh{width:40cqw;mix-blend-mode:multiply;opacity:0;-webkit-mask-image:radial-gradient(closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(closest-side,#000 82%,transparent 100%)}
 .sc.on .ganesh,.sc.out .ganesh{animation:zoomin 1.8s cubic-bezier(.2,.7,.2,1) .2s both}
 .couple{position:absolute;left:50%;bottom:1cqh;width:62cqw;margin-left:-31cqw;filter:drop-shadow(0 1.5cqw 3cqw #5a2a2a55);pointer-events:none}
 .photo{width:50cqw;border-radius:40cqw 40cqw 2cqw 2cqw;border:1.2cqw solid #fff8e6;box-shadow:0 3cqw 8cqw #6a57504d;overflow:hidden;aspect-ratio:1140/1420}
@@ -78,12 +78,20 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 <main class="stage" id="stage">
   <img class="bg" src="bg.jpg" alt="">
 
-  <!-- 0 names -->
+  <!-- 0 blessing -->
+  <section class="sc" id="s0">
+    <img class="ganesh" src="ganesh.jpg" alt="Shree Ganesh">
+    <p class="cap a" style="--d:1.2s;margin-top:5cqw">|| Shree Ganeshay Namah ||</p>
+    <div class="div a" style="--d:1.7s">✦</div>
+    <p class="cap a" style="--d:2.2s">|| Shree Ambikaye Namah ||</p>
+  </section>
+
+  <!-- 1 names -->
   <section class="sc" id="s2" style="--vh:46cqh">
     <p class="cap a" style="--d:.3s">♡ Wedding Reception ♡</p>
-    <p class="script names wipe" style="--d:.8s">Jil</p>
+    <p class="script names a" style="--d:.8s">Jil</p>
     <p class="script amp a" style="--d:2s">&amp;</p>
-    <p class="script names wipe" style="--d:2.4s">Mayank</p>
+    <p class="script names a" style="--d:2.4s">Mayank</p>
     <img class="couple a" style="--d:3.6s" src="couple-cut.png" alt="Jil and Mayank">
   </section>
 
@@ -126,7 +134,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 
 <script>
 const $ = s => document.querySelector(s);
-const T = [8500, 9500, 0]; // ms per scene; 0 = last, stays
+const T = [6500, 8500, 9500, 0]; // ms per scene; 0 = last, stays
 const sc = [...document.querySelectorAll('.sc')], stage = $('#stage');
 let cur = -1, left = 0, last = 0, paused = false, raf = 0;
 
