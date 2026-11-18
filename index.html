@@ -60,6 +60,8 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 #s0 .sans{position:absolute;bottom:12cqw;color:var(--maroon)}
 
 /* shared text */
+.ganesh{width:40cqw;mix-blend-mode:multiply;opacity:0;-webkit-mask-image:radial-gradient(closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(closest-side,#000 82%,transparent 100%)}
+.sc.on .ganesh,.sc.out .ganesh{animation:zoomin 1.8s cubic-bezier(.2,.7,.2,1) .2s both}
 .shree{font-size:3.6cqw;color:var(--maroon);font-style:italic}
 .big{font-size:6cqw;color:var(--maroon)}
 .body{font-size:5cqw;line-height:1.5}
@@ -106,9 +108,10 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 
   <!-- 1 blessing -->
   <section class="sc" id="s1">
-    <p class="shree a" style="--d:.4s">|| Shree Ganeshay Namah ||</p>
-    <p class="orn a" style="--d:1s;margin:5cqw 0">❦</p>
-    <p class="shree a" style="--d:1.6s">|| Shree Ambkiay Namah ||</p>
+    <img class="ganesh" src="ganesh.jpg" alt="Shree Ganesh">
+    <p class="shree a" style="--d:1.4s;margin-top:6cqw">|| Shree Ganeshay Namah ||</p>
+    <p class="orn a" style="--d:1.9s;margin:3cqw 0">❦</p>
+    <p class="shree a" style="--d:2.4s">|| Shree Ambkiay Namah ||</p>
   </section>
 
   <!-- 2 invitation -->
@@ -189,7 +192,7 @@ body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30
 
 <script>
 const $ = s => document.querySelector(s);
-const T = [6000, 3800, 5600, 7200, 6800, 7600, 6200, 5800, 0]; // ms per scene; 0 = last, stays
+const T = [6000, 5200, 5600, 7200, 6800, 7600, 6200, 5800, 0]; // ms per scene; 0 = last, stays
 const sc = [...document.querySelectorAll('.sc')], bars = $('#bars'), stage = $('#stage');
 sc.forEach((_, i) => bars.insertAdjacentHTML('beforeend', '<i><b></b></i>'));
 const seg = [...bars.children];
